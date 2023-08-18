@@ -3,10 +3,18 @@ server:
   servlet:
     context-path: /
 
+# Heroku Kafka Properties
+
+# OAuth2 Environment Variables
+oauth2-config:
+  server-url: ${OAUTH2_SERVER_URL:https://development-oauth-server.herokuapp.com}
+  client-id: ${OAUTH2_CLIENT_ID:9ae2b3e71b8ee9a0810b}
+  client-secret: ${OAUTH2_CLIENT_SECRET:1af8267fc7be02b751c249d583d0df99fd58f6ff}
+
 # Sentry Environment Variables
 sentry-config:
   sentry-dsn: ${SENTRY_DSN}
-
+  
   jpa:
     # 'spring.jpa.open-in-view' is enabled by default.
     # Therefore, database queries may be performed during view rendering.
@@ -30,3 +38,15 @@ sentry-config:
       file-size-threshold: 2KB
       max-request-size: 215MB
       max-file-size: 200MB
+
+security:
+  oauth2:
+    client:
+      clientId: ${oauth2-config.client-id}
+      clientSecret: ${oauth2-config.client-secret}
+      accessTokenUri: ${oauth2-config.server-url}/oauth/token
+      userAuthorizationUri: ${oauth2-config.server-url}/oauth/authorize
+
+    resource:
+      userInfoUri: ${oauth2-config.server-url}/user/info
+      tokenInfoUri: ${oauth2-config.server-url}/oauth/check_token
