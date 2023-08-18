@@ -1,0 +1,12 @@
+version: "3.0"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile/
+    env_file:
+      - .env
+    # image: ottimizza-oauth-service:latest
+    ports:
+      - 9092:9092

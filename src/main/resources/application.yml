@@ -1,0 +1,58 @@
+server:
+  port: ${PORT:5000}
+  servlet:
+    context-path: /
+
+# Heroku Kafka Properties
+
+# OAuth2 Environment Variables
+oauth2-config:
+  server-url: ${OAUTH2_SERVER_URL:https://development-oauth-server.herokuapp.com}
+  client-id: ${OAUTH2_CLIENT_ID:9ae2b3e71b8ee9a0810b}
+  client-secret: ${OAUTH2_CLIENT_SECRET:1af8267fc7be02b751c249d583d0df99fd58f6ff}
+
+# Sentry Environment Variables
+sentry-config:
+  sentry-dsn: ${SENTRY_DSN}
+
+spring:
+  datasource:
+    url: jdbc:postgresql://ec2-3-221-72-63.compute-1.amazonaws.com:5432/de6vte08bnpfce?useSSL=true&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory&sslmode=require
+    username: uftkhdankcc1tn
+    password: p99e08e52eeafd8423591f3eb1cab579142a614f0dd8645fa7855baa8a279ab63
+
+  jpa:
+    # 'spring.jpa.open-in-view' is enabled by default.
+    # Therefore, database queries may be performed during view rendering.
+    # Explicitly configure spring.jpa.open-in-view to disable this warning
+    open-in-view: false
+
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: ${HIBERNATE_SHOW_SQL:false}
+    properties:
+      hibernate:
+        generate_statistics: ${HIBERNATE_STATISTICS:false}
+        temp:
+          use_jdbc_metadata_defaults: false
+
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-request-size: 215MB
+      max-file-size: 200MB
+
+security:
+  oauth2:
+    client:
+      clientId: ${oauth2-config.client-id}
+      clientSecret: ${oauth2-config.client-secret}
+      accessTokenUri: ${oauth2-config.server-url}/oauth/token
+      userAuthorizationUri: ${oauth2-config.server-url}/oauth/authorize
+
+    resource:
+      userInfoUri: ${oauth2-config.server-url}/user/info
+      tokenInfoUri: ${oauth2-config.server-url}/oauth/check_token
