@@ -1,0 +1,6 @@
+heroku-kafka-config:
+  url: ${KAFKA_URL}
+  prefix: ${KAFKA_PREFIX}
+  client-cert: ${KAFKA_CLIENT_CERT}
+  client-cert-key: ${KAFKA_CLIENT_CERT_KEY}
+  trusted-cert: ${KAFKA_TRUSTED_CERT}
