@@ -18,7 +18,7 @@ public class MessagesController {
 
     @PostMapping("/teste")
     public ResponseEntity<?> testeEnvioListener(@RequestBody String objeto, Principal principal) throws Exception {
-        kafkaService.saveMessage(objeto, principal, "envia.mensagem");
+        kafkaService.saveMessage(objeto, principal, "mensagem");
         return ResponseEntity.noContent().build();
     }
 
