@@ -22,4 +22,10 @@ public class MessagesController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/generic_request")
+    public ResponseEntity<?> sendGenericRequests(@RequestBody String object, Principal principal) throws Exception {
+        kafkaService.saveMessage(object, principal, "ottimizza.generic.requests");
+        return ResponseEntity.noContent().build();
+    }
+
 }
