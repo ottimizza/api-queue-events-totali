@@ -29,18 +29,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        String[] _allowed = Arrays.asList(new String[] {
-                "/", "/oauth/**",  "/auth/**", "/tareffa/**", "/oic/**", "/comunicacao/**"
-                
-        }).toArray(new String[] {});
-
          String[] _protected = Arrays.asList(new String[] {
                 "/api/**"
         }).toArray(new String[] {});
-
-        http
-            .authorizeRequests()
-                .antMatchers(_allowed).permitAll();
 
         http
             .csrf().disable()
